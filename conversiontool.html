@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Unit Conversion</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var conversionFactors = {
+        '8-inch CMU': {
+          'Metric ton of concrete': 0.0181,
+          'Short ton of concrete': 0.019951829,
+          'Cubic meter': 0.007869565,
+          'Cubic feet': 0.276375654,
+          'Cubic yard': 0.010236135,
+          'KG': 18.1,
+          'Pound': 39.90367,
+          'Exposed Face (m²)': 0.074,
+          'CO2 abated (ton CO2)': 0.0021,
+          'CO2 removed (ton CO2)': 0.00045,
+          'CO2 abated + removed (ton CO2)': 0.00255,
+          'Cement avoided (ton)': 0.00181,
+          'Steel slag used (ton)': 0.00362,
+          'Curing Chamber': 0.000833333,
+        },
+        'Metric ton of concrete': {
+          '8-inch CMU': 55.24861878,
+          'Short ton of concrete': 1.10231,
+          'Cubic meter': 0.434782609,
+          'Cubic feet': 15.35437907,
+          'Cubic yard': 0.568828214,
+          'KG': 1000,
+          'Pound': 2204.62,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.116022099,
+          'CO2 removed (ton CO2)': 0.024861878,
+          'CO2 abated + removed (ton CO2)': 0.140883978,
+          'Cement avoided (ton)': 0.1,
+          'Steel slag used (ton)': 0.2,
+          'Curing Chamber': 0.046040516,
+        },
+        'Short ton of concrete': {
+          '8-inch CMU': 50.12071823,
+          'Metric ton of concrete': 0.907,
+          'Cubic meter': 0.394428617,
+          'Cubic feet': 13.92925777,
+          'Cubic yard': 0.516032253,
+          'KG': 907.185,
+          'Pound': 2000,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.105253508,
+          'CO2 removed (ton CO2)': 0.022554323,
+          'CO2 abated + removed (ton CO2)': 0.127807831,
+          'Cement avoided (ton)': 0.0907185,
+          'Steel slag used (ton)': 0.181437,
+          'Curing Chamber': 0.041767265,
+        },
+        'Cubic meter': {
+          '8-inch CMU': 127.0718232,
+          'Metric ton of concrete': 2.3,
+          'Short ton of concrete': 2.535313,
+          'Cubic feet': 35.315,
+          'Cubic yard': 1.308,
+          'KG': 2300,
+          'Pound': 5071.5,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.266850829,
+          'CO2 removed (ton CO2)': 0.05718232,
+          'CO2 abated + removed (ton CO2)': 0.324033149,
+          'Cement avoided (ton)': 0.23,
+          'Steel slag used (ton)': 0.46,
+          'Curing Chamber': 0.105893186,
+        },
+        'Cubic feet': {
+          '8-inch CMU': 3.618263711,
+          'Metric ton of concrete': 0.065128,
+          'Short ton of concrete': 0.071791334,
+          'Cubic meter': 0.0283,
+          'Cubic yard': 0.037,
+          'KG': 65.12875,
+          'Pound': 143.6088938,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.007598354,
+          'CO2 removed (ton CO2)': 0.001628219,
+          'CO2 abated + removed (ton CO2)': 0.009226572,
+          'Cement avoided (ton)': 0.006549057,
+          'Steel slag used (ton)': 0.013098115,
+          'Curing Chamber': 0.00301522,
+        },
+        'Cubic yard': {
+          '8-inch CMU': 97.6931202,
+          'Metric ton of concrete': 1.758,
+          'Short ton of concrete': 1.93786337,
+          'Cubic meter': 0.764,
+          'Cubic feet': 27,
+          'KG': 1758.476,
+          'Pound': 3877.43958,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.205155552,
+          'CO2 removed (ton CO2)': 0.043961904,
+          'CO2 abated + removed (ton CO2)': 0.249117457,
+          'Cement avoided (ton)': 0.176824548,
+          'Steel slag used (ton)': 0.353649095,
+          'Curing Chamber': 0.081410933,
+        },
+        'KG': {
+          '8-inch CMU': 0.055248619,
+          'Metric ton of concrete': 0.001,
+          'Short ton of concrete': 0.001102293,
+          'Cubic meter': 0.000434783,
+          'Cubic feet': 0.015354202,
+          'Cubic yard': 0.000568674,
+          'Pound': 2.205,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.000116022,
+          'CO2 removed (ton CO2)': 0.00014088,
+          'CO2 abated + removed (ton CO2)': 0.00002486,
+          'Cement avoided (ton)': 0.0001,
+          'Steel slag used (ton)': 0.0002,
+          'Curing Chamber': 0.000046,
+        },
+        'Pound': {
+          '8-inch CMU': 0.025060352,
+          'Metric ton of concrete': 0.000453515,
+          'Short ton of concrete': 0.0005,
+          'Cubic meter': 0.00019718,
+          'Cubic feet': 0.006963357,
+          'Cubic yard': 0.000257902,
+          'KG': 0.453514739,
+          'Exposed Face (m²)': null,
+          'CO2 abated (ton CO2)': 0.0000526267383426136,
+          'CO2 removed (ton CO2)': 0.0000112771582162743,
+          'CO2 abated + removed (ton CO2)': 0.0000639038965588879,
+          'Cement avoided (ton)': 0.0000453592363810146,
+          'Steel slag used (ton)': 0.0000907184727620292,
+          'Curing Chamber': 0.000020883626326434,
+        },
+        'Exposed Face (m²)': {
+          '8-inch CMU': 13.51351351,
+          'Metric ton of concrete': null,
+          'Short ton of concrete': null,
+          'Cubic meter': null,
+          'Cubic feet': null,
+          'Cubic yard': null,
+          'KG': null,
+          'Pound': null,
+          'CO2 abated (ton CO2)': 0.028378378,
+          'CO2 removed (ton CO2)': 0.006081081,
+          'CO2 abated + removed (ton CO2)': 0.034459459,
+          'Cement avoided (ton)': 0.024459459,
+          'Steel slag used (ton)': 0.048918919,
+          'Curing Chamber': 0.011261261,
+        },
+        'CO2 abated (ton CO2)': {
+          '8-inch CMU': 476.1904762,
+          'Metric ton of concrete': 8.619047619,
+          'Short ton of concrete': 9.500870957,
+          'Cubic meter': 3.747412008,
+          'Cubic feet': 131.6074544,
+          'Cubic yard': 4.874350161,
+          'KG': 8619.047619,
+          'Pound': 19001.74762,
+          'Exposed Face (m²)': 35.23809524,
+          'CO2 removed (ton CO2)': 0.214285714,
+          'CO2 abated + removed (ton CO2)': 1.214285714,
+          'Cement avoided (ton)': 0.861904762,
+          'Steel slag used (ton)': 1.723809524,
+          'Curing Chamber': null,
+        },
+        'CO2 removed (ton CO2)': {
+          '8-inch CMU': 2222.222,
+          'Metric ton of concrete': 40.222,
+          'Short ton of concrete': 44.337,
+          'Cubic meter': 17.488,
+          'Cubic feet': 614.168,
+          'Cubic yard': 22.747,
+          'KG': 40222.222,
+          'Pound': 88674.822,
+          'Exposed Face (m²)': 164.444,
+          'CO2 abated (ton CO2)': 4.666666667,
+          'CO2 abated + removed (ton CO2)': 5.666666667,
+          'Cement avoided (ton)': 4.022222222,
+          'Steel slag used (ton)': 8.044444444,
+          'Curing Chamber': null,
+        },
+        'CO2 abated + removed (ton CO2)': {
+          '8-inch CMU': 392.1568627,
+          'Metric ton of concrete': 7.098039216,
+          'Short ton of concrete': 7.82424667,
+          'Cubic meter': 3.086104007,
+          'Cubic feet': 108.3826095,
+          'Cubic yard': 4.014170721,
+          'KG': 7098.039216,
+          'Pound': 15648.49804,
+          'Exposed Face (m²)': 29.01960784,
+          'CO2 abated (ton CO2)': 0.823529412,
+          'CO2 removed (ton CO2)': 0.176470588,
+          'Cement avoided (ton)': 0.709803922,
+          'Steel slag used (ton)': 1.419607843,
+          'Curing Chamber': null,
+        },
+        'Cement avoided (ton)': {
+          '8-inch CMU': 552.4861878,
+          'Metric ton of concrete': 10,
+          'Short ton of concrete': 11.02310995,
+          'Cubic meter': 4.347826087,
+          'Cubic feet': 152.6937316,
+          'Cubic yard': 5.655323391,
+          'KG': 10000,
+          'Pound': 22046.22652,
+          'Exposed Face (m²)': 40.8839779,
+          'CO2 abated (ton CO2)': 1.160220994,
+          'CO2 removed (ton CO2)': 0.248618785,
+          'CO2 abated + removed (ton CO2)': 1.408839779,
+          'Steel slag used (ton)': 2,
+          'Curing Chamber': null,
+        },
+        'Steel slag used (ton)': {
+          '8-inch CMU': 276.2430939,
+          'Metric ton of concrete': 5,
+          'Short ton of concrete': 5.511554975,
+          'Cubic meter': 2.173913043,
+          'Cubic feet': 76.34686578,
+          'Cubic yard': 2.827661696,
+          'KG': 5000,
+          'Pound': 11023.11326,
+          'Exposed Face (m²)': 20.44198895,
+          'CO2 abated (ton CO2)': 0.580110497,
+          'CO2 removed (ton CO2)': 0.124309392,
+          'CO2 abated + removed (ton CO2)': 0.70441989,
+          'Cement avoided (ton)': 0.5,
+          'Curing Chamber': null,
+        },
+        'Curing Chamber': {
+          '8-inch CMU': 1200,
+          'Metric ton of concrete': 21.72,
+          'Short ton of concrete': 23.94219481,
+          'Cubic meter': 9.443478261,
+          'Cubic feet': 331.650785,
+          'Cubic yard': 12.28336241,
+          'KG': 21720,
+          'Pound': 47884.404,
+          'Exposed Face (m²)': 88.8,
+          'CO2 abated (ton CO2)': 2.52,
+          'CO2 removed (ton CO2)': 0.54,
+          'CO2 abated + removed (ton CO2)': 3.06,
+          'Cement avoided (ton)': 2.172,
+          'Steel slag used (ton)': 4.344,
+        },
+      };
+
+      function convertQuantity() {
+        var fromUnit = document.getElementById('fromUnit').value;
+        var toUnit = document.getElementById('toUnit').value;
+        var quantity = document.getElementById('quantity').value;
+        var convertedQuantity = document.getElementById('convertedQuantity');
+        if (fromUnit === toUnit) {
+          convertedQuantity.value = quantity;
+          return;
+        }
+        if (conversionFactors[fromUnit] && conversionFactors[fromUnit][toUnit]) {
+          var conversionFactor = conversionFactors[fromUnit][toUnit];
+          var result = quantity * conversionFactor;
+          convertedQuantity.value = result.toFixed(4);
+        } else {
+          convertedQuantity.value = 'Conversion not available';
+        }
+      }
+    </script>
+    <h1>Unit Conversion</h1>
+    <label for="fromUnit">From:</label>
+    <select id="fromUnit">
+      <option value="8-inch CMU">8-inch CMU</option>
+      <option value="Metric ton of concrete">Metric ton of concrete</option>
+      <option value="Short ton of concrete">Short ton of concrete</option>
+      <option value="Cubic meter">Cubic meter</option>
+      <option value="Cubic feet">Cubic feet</option>
+      <option value="Cubic yard">Cubic yard</option>
+      <option value="KG">KG</option>
+      <option value="Pound">Pound</option>
+      <option value="Exposed Face (m²)">Exposed Face (m²)</option>
+      <option value="CO2 abated (ton CO2)">CO2 abated (ton CO2)</option>
+      <option value="CO2 removed (ton CO2)">CO2 removed (ton CO2)</option>
+      <option value="CO2 abated + removed (ton CO2)">CO2 abated + removed (ton CO2)</option>
+      <option value="Cement avoided (ton)">Cement avoided (ton)</option>
+      <option value="Steel slag used (ton)">Steel slag used (ton)</option>
+      <option value="Curing Chamber">Curing Chamber</option>
+    </select>
+    <label for="toUnit">To:</label>
+    <select id="toUnit">
+      <option value="8-inch CMU">8-inch CMU</option>
+      <option value="Metric ton of concrete">Metric ton of concrete</option>
+      <option value="Short ton of concrete">Short ton of concrete</option>
+      <option value="Cubic meter">Cubic meter</option>
+      <option value="Cubic feet">Cubic feet</option>
+      <option value="Cubic yard">Cubic yard</option>
+      <option value="KG">KG</option>
+      <option value="Pound">Pound</option>
+      <option value="Exposed Face (m²)">Exposed Face (m²)</option>
+      <option value="CO2 abated (ton CO2)">CO2 abated (ton CO2)</option>
+      <option value="CO2 removed (ton CO2)">CO2 removed (ton CO2)</option>
+      <option value="CO2 abated + removed (ton CO2)">CO2 abated + removed (ton CO2)</option>
+      <option value="Cement avoided (ton)">Cement avoided (ton)</option>
+      <option value="Steel slag used (ton)">Steel slag used (ton)</option>
+      <option value="Curing Chamber">Curing Chamber</option>
+    </select>
+    <br>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" step="0.01" min="0">
+    <br>
+    <br>
+    <button onclick="convertQuantity()">Convert</button>
+    <br>
+    <br>
+    <label for="convertedQuantity">Converted Quantity:</label>
+    <input type="text" id="convertedQuantity" disabled>
+  </body>
+</html>
