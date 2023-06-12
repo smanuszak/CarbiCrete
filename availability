@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teams Availability</title>
+    <script src="https://statics.teams.microsoft.com/sdk/v1.9.0/js/MicrosoftTeams.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Teams Availability</h1>
+    <div id="availabilityContainer"></div>
+
+    <script>
+        $(document).ready(function() {
+            microsoftTeams.initialize();
+            
+            var emails = ["room1@carbicrete.com", "room2@carbicrete.com", "room3@carbicrete.com", "room4@carbicrete.com"];
+            var availabilityContainer = $("#availabilityContainer");
+
+            emails.forEach(function(email) {
+                microsoftTeams.getContext(function(context) {
+                    var entityId = context.entityId;
+                    var conversationId = context.conversationId;
+                    var tenantId = context.tid;
+                    
+                    var requestUrl = `https://teams.microsoft.com/api/mt/callme?entityId=${entityId}&conversationId=${conversationId}&tenantId=${tenantId}&email=${email}`;
+                    $.ajax({
+                        url: requestUrl,
+                        type: "GET",
+                        success: function(response) {
+                            var status = response.activityStatus;
+                            var statusText = response.activity;
+
+                            var availabilityDiv = $("<div>");
+                            availabilityDiv.append($("<h2>").text(email));
+                            availabilityDiv.append($("<p>").text("Status: " + status));
+                            availabilityDiv.append($("<p>").text("Activity: " + statusText));
+
+                            availabilityContainer.append(availabilityDiv);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
